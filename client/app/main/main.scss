@@ -19,7 +19,7 @@
   a {
     color: inherit;
     &:hover {
-      color: darken(#0077EF, 25%);
+      color: darken(#EFEFEF, 0.75);
       text-decoration: none;
       transition: color 500ms;
     }
