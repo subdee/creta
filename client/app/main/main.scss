@@ -1,0 +1,43 @@
+.table {
+  border-bottom:0 !important;
+  th, td {
+    border: 0 !important;
+  }
+  td {
+    color: #fff;
+    &.price {
+    }
+  }
+}
+.fixed-table-container {
+  border:0 !important;
+}
+
+.orange {
+  color: #0077EF;
+  background-color: rgba(230, 95, 14, 0.8);
+  a {
+    color: inherit;
+    &:hover {
+      color: darken(#0077EF, 25%);
+      text-decoration: none;
+      transition: color 500ms;
+    }
+  }
+}
+
+.navbar-default {
+  background: inherit;
+  border: none;
+  min-height: 10px;
+}
+
+header .container {
+  background-color: #fff;
+  padding-bottom: 100px;
+  padding-top: 10px;
+}
+
+.angular-google-map-container {
+  height: 200px;
+}
