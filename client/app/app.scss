@@ -21,11 +21,14 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import '../components/modal/modal.scss';
 // endinjector
 
-@import url(https://fonts.googleapis.com/css?family=Boogaloo);
+@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+
+html {
+  font-size: 14px;
+}
 
 body {
-  font-family: 'Boogaloo', cursive;
-  font-size: 18px;
+  font-family: 'Comfortaa', cursive;
+  font-size: 1rem;
   color: #222;
-  background-color: #efefef;
 }

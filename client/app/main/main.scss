@@ -1,5 +1,5 @@
 .table {
-  border-bottom:0 !important;
+  border-bottom: 0 !important;
   th, td {
     border: 0 !important;
   }
@@ -9,8 +9,18 @@
     }
   }
 }
+
 .fixed-table-container {
-  border:0 !important;
+  border: 0 !important;
+}
+
+.top {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  div.title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
 }
 
 .orange {
@@ -32,12 +42,10 @@
   min-height: 10px;
 }
 
-header .container {
-  background-color: #fff;
-  padding-bottom: 100px;
-  padding-top: 10px;
+.google-map-container {
+  height: 150px;
 }
 
-.angular-google-map-container {
-  height: 200px;
+ng-map {
+  height: 100%;
 }

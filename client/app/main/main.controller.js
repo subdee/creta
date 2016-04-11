@@ -4,10 +4,10 @@
 
   class MainController {
 
-    constructor($http) {
+    constructor($http, $scope, NgMap) {
       this.$http = $http;
+      this.ngMap = NgMap;
       this.menu = [];
-      this.map = {};
     }
 
     $onInit() {
@@ -88,7 +88,6 @@
           ]
         }
       ];
-      this.map = {center: {latitude: 52.013797, longitude: 4.281024}, zoom: 8};
     }
 
     addToOrder() {
