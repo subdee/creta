@@ -3,40 +3,40 @@
 var app = require('../..');
 import request from 'supertest';
 
-var newThing;
+var newMenu;
 
-describe('Thing API:', function() {
+describe('Menu API:', function() {
 
-  describe('GET /api/things', function() {
-    var things;
+  describe('GET /api/menus', function() {
+    var menus;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things')
+        .get('/api/menus')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          things = res.body;
+          menus = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      things.should.be.instanceOf(Array);
+      menus.should.be.instanceOf(Array);
     });
 
   });
 
-  describe('POST /api/things', function() {
+  describe('POST /api/menus', function() {
     beforeEach(function(done) {
       request(app)
-        .post('/api/things')
+        .post('/api/menus')
         .send({
-          name: 'New Thing',
-          info: 'This is the brand new thing!!!'
+          name: 'New Menu',
+          info: 'This is the brand new menu!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -44,55 +44,55 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          newThing = res.body;
+          newMenu = res.body;
           done();
         });
     });
 
-    it('should respond with the newly created thing', function() {
-      newThing.name.should.equal('New Thing');
-      newThing.info.should.equal('This is the brand new thing!!!');
+    it('should respond with the newly created menu', function() {
+      newMenu.name.should.equal('New Menu');
+      newMenu.info.should.equal('This is the brand new menu!!!');
     });
 
   });
 
-  describe('GET /api/things/:id', function() {
-    var thing;
+  describe('GET /api/menus/:id', function() {
+    var menu;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things/' + newThing._id)
+        .get('/api/menus/' + newMenu._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          thing = res.body;
+          menu = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      thing = {};
+      menu = {};
     });
 
-    it('should respond with the requested thing', function() {
-      thing.name.should.equal('New Thing');
-      thing.info.should.equal('This is the brand new thing!!!');
+    it('should respond with the requested menu', function() {
+      menu.name.should.equal('New Menu');
+      menu.info.should.equal('This is the brand new menu!!!');
     });
 
   });
 
-  describe('PUT /api/things/:id', function() {
-    var updatedThing;
+  describe('PUT /api/menus/:id', function() {
+    var updatedMenu;
 
     beforeEach(function(done) {
       request(app)
-        .put('/api/things/' + newThing._id)
+        .put('/api/menus/' + newMenu._id)
         .send({
-          name: 'Updated Thing',
-          info: 'This is the updated thing!!!'
+          name: 'Updated Menu',
+          info: 'This is the updated menu!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -100,27 +100,27 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          updatedThing = res.body;
+          updatedMenu = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      updatedThing = {};
+      updatedMenu = {};
     });
 
-    it('should respond with the updated thing', function() {
-      updatedThing.name.should.equal('Updated Thing');
-      updatedThing.info.should.equal('This is the updated thing!!!');
+    it('should respond with the updated menu', function() {
+      updatedMenu.name.should.equal('Updated Menu');
+      updatedMenu.info.should.equal('This is the updated menu!!!');
     });
 
   });
 
-  describe('DELETE /api/things/:id', function() {
+  describe('DELETE /api/menus/:id', function() {
 
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/menus/' + newMenu._id)
         .expect(204)
         .end((err, res) => {
           if (err) {
@@ -130,9 +130,9 @@ describe('Thing API:', function() {
         });
     });
 
-    it('should respond with 404 when thing does not exist', function(done) {
+    it('should respond with 404 when menu does not exist', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/menus/' + newMenu._id)
         .expect(404)
         .end((err, res) => {
           if (err) {

@@ -2,9 +2,18 @@
     <div class="row top">
         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
             <div class="title">Jouw bestelling</div>
-            <div>
+            <div ng-show="order.length === 0">
                 <p>Er is nog niets te eten!</p>
                 <p>Kies iets uit onze menu.</p>
+            </div>
+            <div ng-show="order.length > 0">
+                <table class="table table-responsive">
+                    <tr ng-repeat="item in order.items">
+                        <td>{{item.qty}}</td>
+                        <td>{{item.item.name}}</td>
+                        <td class="text-right price">{{item.item.price | currency:''}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="col-lg-6">
@@ -40,11 +49,22 @@
 
 <div class="container-fluid orange">
     <div class="row">
-        <div class="col-lg-3" ng-repeat="section in $ctrl.menu">
+        <div class="col-lg-3" ng-repeat="section in $ctrl.menu | limitTo:4">
             <h3 class="text-center">{{section.name}}</h3>
             <table class="table table-responsive">
                 <tr ng-repeat="item in section.items">
-                    <td><a href="#" uib-tooltip="Klik om te bestellen">{{item.name}}</a></td>
+                    <td><a href="#" ng-click="addToOrder(item)" uib-tooltip="Klik om te bestellen">{{item.name}}</a></td>
+                    <td class="text-right price">{{item.price | currency:''}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3" ng-repeat="section in $ctrl.menu | limitTo:4:4">
+            <h3 class="text-center">{{section.name}}</h3>
+            <table class="table table-responsive">
+                <tr ng-repeat="item in section.items">
+                    <td><a href="#" ng-click="addToOrder(item)" uib-tooltip="Klik om te bestellen">{{item.name}}</a></td>
                     <td class="text-right price">{{item.price | currency:''}}</td>
                 </tr>
             </table>
