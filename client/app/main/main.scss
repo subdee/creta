@@ -8,6 +8,18 @@
     &.price {
     }
   }
+  &.order {
+    td {
+      color: #222;
+      width: 33%;
+      span {
+        width: 40px;
+      }
+      i {
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .fixed-table-container {

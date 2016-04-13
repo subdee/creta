@@ -18,9 +18,25 @@
     }
 
     addToOrder(item) {
-      this.order = [
-        {qty: 1, item: item}
-      ];
+      for (var i = 0; i < this.order.length; i++) {
+        if (Object.is(this.order[i].item, item) === true) {
+          this.order[i].qty++;
+          return;
+        }
+      }
+      this.order.push({qty: 1, item: item});
+    }
+
+    increaseQty(idx) {
+      if (this.order[idx].qty < 10) {
+        this.order[idx].qty++;
+      }
+    }
+
+    decreaseQty(idx) {
+      if (this.order[idx].qty > 1) {
+        this.order[idx].qty--;
+      }
     }
   }
 
