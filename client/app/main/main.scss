@@ -9,6 +9,11 @@
     }
   }
   &.order {
+    tr.totals {
+      td {
+        font-weight: bold;
+      }
+    }
     td {
       color: #222;
       width: 33%;

@@ -10,24 +10,41 @@
                 <table class="table table-responsive order">
                     <tr ng-repeat="item in $ctrl.order">
                         <td>
-                          <button class="btn btn-default">
-                            <i class="fa fa-minus" ng-click="$ctrl.decreaseQty($index)"></i>
+                          <button class="btn btn-default" ng-click="$ctrl.decreaseQty($index)">
+                            <i class="fa fa-minus"></i>
                           </button>
                           <span>{{item.qty}}</span>
-                          <button class="btn btn-default">
-                            <i class="fa fa-plus" ng-click="$ctrl.increaseQty($index)"></i>
+                          <button class="btn btn-default" ng-click="$ctrl.increaseQty($index)">
+                            <i class="fa fa-plus"></i>
                           </button>
                         </td>
                         <td>{{item.item.name}}</td>
                         <td class="text-right price">{{item.item.price * item.qty | currency:''}}</td>
                     </tr>
+                    <tr ng-if="$ctrl.deliveryCost">
+                        <td></td>
+                        <td>Bezorgkosten</td>
+                        <td class="text-right price">{{1.5 | currency:''}}</td>
+                    </tr>
+                    <tr class="totals">
+                        <td></td>
+                        <td>Totaal</td>
+                        <td class="text-right price">{{$ctrl.getTotal() | currency:''}}</td>
+                    </tr>
                 </table>
+                <hr>
+                <p>
+                    <small>Minimum bedrag is €12. GRATIS bezorging vanaf €17.</small>
+                </p>
+                <button class="btn btn-success" ng-disabled="!$ctrl.canOrder">
+                    Bestellen
+                </button>
             </div>
         </div>
         <div class="col-lg-4">
             <img src="assets/images/main.png" class="img-fluid" alt="Creta">
         </div>
-        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+        <div class="col-lg-offset-1 col-md-offset-1 col-lg-3 col-md-3 hidden-sm hidden-xs">
             <div class="title">Onze locatie</div>
             <p>Zwethove, 2291 Wateringen</p>
             <div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyC9liAIzBMEdQeessedChNvAFCESNh766A"
@@ -57,22 +74,22 @@
 
 <div class="container-fluid orange">
     <div class="row">
-        <div class="col-lg-3" ng-repeat="section in $ctrl.menu | limitTo:4">
+        <div class="col-lg-15" ng-repeat="section in $ctrl.menu | orderBy:'position' | limitTo:5">
             <h3 class="text-center">{{section.name}}</h3>
             <table class="table table-responsive">
                 <tr ng-repeat="item in section.items">
-                    <td><a href="#" ng-click="$ctrl.addToOrder(item)" uib-tooltip="Klik om te bestellen">{{item.name}}</a></td>
+                    <td><a href="#" ng-click="$ctrl.addToOrder(item)" uib-tooltip="{{item.desc}}">{{item.name}}</a></td>
                     <td class="text-right price">{{item.price | currency:''}}</td>
                 </tr>
             </table>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3" ng-repeat="section in $ctrl.menu | limitTo:4:4">
+        <div class="col-lg-15" ng-repeat="section in $ctrl.menu | orderBy:'position' | limitTo:5:5">
             <h3 class="text-center">{{section.name}}</h3>
             <table class="table table-responsive">
                 <tr ng-repeat="item in section.items">
-                    <td><a href="#" ng-click="$ctrl.addToOrder(item)" uib-tooltip="Klik om te bestellen">{{item.name}}</a></td>
+                    <td><a href="#" ng-click="$ctrl.addToOrder(item)" uib-tooltip="{{item.desc}}">{{item.name}}</a></td>
                     <td class="text-right price">{{item.price | currency:''}}</td>
                 </tr>
             </table>
