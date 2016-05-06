@@ -1,16 +1,4 @@
-/**
- * Using Rails-like standard naming convention for endpoints.
- * GET     /api/menus              ->  index
- * POST    /api/menus              ->  create
- * GET     /api/menus/:id          ->  show
- * PUT     /api/menus/:id          ->  update
- * DELETE  /api/menus/:id          ->  destroy
- */
-
 'use strict';
-
-import _ from 'lodash';
-import Menu from './menu.model';
 
 var Paynl = require('paynl'), pay;
 
@@ -48,8 +36,14 @@ export function index() {
 
 // Creates a new payment
 export function create(req, res) {
-  return Menu.create(req.body)
-    .then(respondWithResult(res, 201))
-    .catch(handleError(res));
+  pay.invoke('Session/create/v2', {
+    programId: 30217,
+    websiteId: 2,
+    amount: req.get('amount')
+  }).then(function (response) {
+    respondWithResult(response, 200);
+  }, function (error) {
+    handleError(error);
+  })
 }
 
