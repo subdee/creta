@@ -4,6 +4,7 @@ var Paynl = require('paynl'), pay;
 
 pay = new Paynl({
   tokenId : 'SL-2693-0670',
+  accountId: 402484,
   token   : '316778af877cf80833110eb638b442dd9d259966'
 });
 

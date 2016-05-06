@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('cretaApp')
-  .service('orderService', function () {
-    var order = [];
+  .service('orderService', function (localStorageService) {
+    var order = localStorageService.get('order') ? localStorageService.get('order') : [];
     var total = 0;
 
     return {
       addToOrder: function (item) {
         for (var i = 0; i < order.length; i++) {
-          if (Object.is(order[i].item, item) === true) {
+          if (order[i].item.name === item.name) {
             return this.increaseQty(i);
           }
         }
         order.push({qty: 1, item: item});
         total += item.price;
-        return order;
+        return this.getOrder();
       },
 
       increaseQty: function (idx) {
@@ -22,7 +22,7 @@ angular.module('cretaApp')
         if (order[idx].qty < 10) {
           order[idx].qty++;
         }
-        return order;
+        return this.getOrder();
       },
 
       decreaseQty: function (idx) {
@@ -32,14 +32,23 @@ angular.module('cretaApp')
         } else {
           order.splice(idx, 1);
         }
-        return order;
+        return this.getOrder();
       },
 
       getTotal: function () {
         return total + this.getDeliveryCost();
       },
 
+      calculateTotal: function () {
+        total = 0;
+        for (var i = 0; i < order.length; i++) {
+          total += order[i].qty * order[i].item.price;
+        }
+        return this.getTotal();
+      },
+
       getOrder: function () {
+        localStorageService.set('order', order);
         return order;
       },
 

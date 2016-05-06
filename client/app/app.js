@@ -7,11 +7,14 @@ angular.module('cretaApp', [
     'ngSanitize',
     'ui.router',
     'ui.bootstrap',
-    'ngMap'
+    'ngMap',
+    'LocalStorageModule'
   ])
-  .config(function ($urlRouterProvider, $locationProvider) {
+  .config(function ($urlRouterProvider, $locationProvider, localStorageServiceProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+
+    localStorageServiceProvider.setPrefix('creta');
   });

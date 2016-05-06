@@ -4,13 +4,14 @@
 
   class MainController {
 
-    constructor($http, NgMap, orderService) {
+    constructor($http, $state, NgMap, orderService) {
       this.$http = $http;
+      this.$state = $state;
       this.ngMap = NgMap;
       this.menu = [];
       this.orderService = orderService;
       this.order = orderService.getOrder();
-      this.total = orderService.getTotal();
+      this.total = orderService.calculateTotal();
       this.canOrder = orderService.canOrder();
     }
 
