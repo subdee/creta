@@ -23,15 +23,9 @@ describe('Component: mainComponent', function () {
 
     scope = $rootScope.$new();
     state = $state;
-    mainComponent = $componentController('main', {
+    mainComponent = $componentController('checkout', {
       $http: $http,
       $scope: scope
     });
   }));
-
-  it('should attach a list of things to the controller', function () {
-    mainComponent.$onInit();
-    $httpBackend.flush();
-    expect(mainComponent.awesomeThings.length).toBe(4);
-  });
 });

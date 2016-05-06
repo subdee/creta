@@ -59,5 +59,5 @@ angular.module('cretaApp')
       canOrder: function () {
         return total > 12;
       }
-    }
+    };
   });

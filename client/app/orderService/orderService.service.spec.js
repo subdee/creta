@@ -11,8 +11,4 @@ describe('Service: orderService', function () {
     orderService = _orderService_;
   }));
 
-  it('should do something', function () {
-    expect(!!orderService).toBe(true);
-  });
-
 });
