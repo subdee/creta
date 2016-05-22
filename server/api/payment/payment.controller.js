@@ -1,17 +1,24 @@
 'use strict';
 
-var Paynl = require('paynl'), pay;
+import Order from "./order.model";
+
+var token = '316778af877cf80833110eb638b442dd9d259966';
+var serviceId = 'SL-2693-0670';
+var Paynl = require('nodejs-paynl'), pay;
 
 pay = new Paynl({
-  tokenId : 'SL-2693-0670',
   accountId: 402484,
-  token   : '316778af877cf80833110eb638b442dd9d259966'
+  token: token
 });
 
-function respondWithResult(res, statusCode) {
+function respondWithResult(res, statusCode, order = null) {
   statusCode = statusCode || 200;
-  return function(entity) {
+  return function (entity) {
     if (entity) {
+      if (order) {
+        order.transactionId = entity.transaction.transactionId;
+        order.save();
+      }
       res.status(statusCode).json(entity);
     }
   };
@@ -19,32 +26,55 @@ function respondWithResult(res, statusCode) {
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return function(err) {
+  return function (err) {
     res.status(statusCode).send(err);
   };
 }
 
-export function index() {
-  pay.invoke('Session/getPaymentOptions/v2', {
-    programId : 30217,
-    websiteId : 2
-  }).then(function(response) {
-    respondWithResult(response, 200);
-  }, function(error) {
-    handleError(error);
-  })
+export function index(req, res) {
+  pay.invoke('Transaction/getBanks/v2', {}).then(
+    respondWithResult(res, 200)
+  ).catch(
+    handleError(res)
+  );
 }
 
 // Creates a new payment
 export function create(req, res) {
-  pay.invoke('Session/create/v2', {
-    programId: 30217,
-    websiteId: 2,
-    amount: req.get('amount')
-  }).then(function (response) {
-    respondWithResult(response, 200);
-  }, function (error) {
-    handleError(error);
-  })
+  var order = saveOrder(req.body);
+  var amt = parseInt(order.amount * 100);
+  pay.invoke('Transaction/start/v3', {
+    token: token,
+    serviceId: serviceId,
+    amount: amt,
+    paymentOptionId: 10,
+    paymentOptionSubId: order.bank,
+    finishUrl: 'http://creta-subdee.rhcloud.com/thankyou'
+  }).then(
+    respondWithResult(res, 200, order)
+  ).catch(
+    handleError(res)
+  );
 }
 
+function saveOrder(payment) {
+  var order = new Order({
+    name: payment.name,
+    phone: payment.phone,
+    street: payment.street,
+    houseNumber: payment.houseNumber,
+    city: payment.city,
+    postcode: payment.postcode,
+    amount: payment.amount,
+    bank: payment.bank,
+    transactionId: '',
+    orderDate: Date.now(),
+    completed: false
+  });
+  order.save(function (err) {
+    if (err) {
+      handleError(err);
+    }
+  });
+  return order;
+}

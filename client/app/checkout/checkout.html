@@ -36,11 +36,13 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <label for="name">Naam</label>
-                            <input type="email" class="form-control" id="name" name="name">
+                            <input type="name" class="form-control" id="name" ng-model="$ctrl.payment.name"
+                                   ng-required="true">
                         </div>
                         <div class="col-xs-6">
                             <label for="phone">Telefoonnummer</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
+                            <input type="text" class="form-control" id="phone" ng-model="$ctrl.payment.phone"
+                                   ng-required="true">
                         </div>
                     </div>
                 </div>
@@ -48,11 +50,13 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <label for="street">Straat</label>
-                            <input type="text" class="form-control" id="street" name="street">
+                            <input type="text" class="form-control" id="street" ng-model="$ctrl.payment.street"
+                                   ng-required="true">
                         </div>
                         <div class="col-xs-6">
                             <label for="housenumber">Huisnummer</label>
-                            <input type="text" class="form-control" id="housenumber" name="housenumber">
+                            <input type="text" class="form-control" id="housenumber"
+                                   ng-model="$ctrl.payment.houseNumber" ng-required="true">
                         </div>
                     </div>
                 </div>
@@ -60,15 +64,28 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <label for="city">Plaats</label>
-                            <input type="text" class="form-control" id="city" name="city">
+                            <input type="text" class="form-control" id="city" ng-model="$ctrl.payment.city"
+                                   ng-required="true">
                         </div>
                         <div class="col-xs-6">
                             <label for="postcode">Postcode</label>
-                            <input type="text" class="form-control" id="postcode" name="postcode">
+                            <input type="text" class="form-control" id="postcode" ng-model="$ctrl.payment.postcode"
+                                   ng-required="true">
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Naar betaalpagina</button>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="bank">Bank</label>
+                            <select id="bank"
+                                    ng-options="bank.issuerId as bank.name for bank in $ctrl.banks.data track by bank.issuerId"
+                                    ng-model="$ctrl.payment.bank" ng-required="true">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="$ctrl.goToPayment()">Naar betaalpagina</button>
             </form>
         </div>
     </div>

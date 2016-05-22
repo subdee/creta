@@ -6,5 +6,8 @@ angular.module('cretaApp')
       .state('checkout', {
         url: '/checkout',
         template: '<checkout></checkout>'
-      });
+      }).state('thankyou', {
+      url: '/thankyou',
+      template: '<thankyou></thankyou>'
+    });
   });
