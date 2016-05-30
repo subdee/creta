@@ -14,6 +14,7 @@
       this.banks = [];
       this.deliveryTimeOptions = CheckoutController.getDeliveryTimeOptions();
       this.payment = {
+        items: this.order,
         name: '',
         form: '',
         street: '',
@@ -23,8 +24,9 @@
         bank: '',
         amount: 0,
         remarks: '',
-        deliveryTime: this.deliveryTimeOptions[0]
+        deliveryTime: this.deliveryTimeOptions[0].value
       };
+      this.orderService.clearOrder();
     }
 
     $onInit() {

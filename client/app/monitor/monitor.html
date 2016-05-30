@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-10">
+      <div class="monitor-table">
+        <div class="row order-info" ng-repeat="order in $ctrl.orders" id="{{$index}}">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-2">
+                <h4>{{order.name}}</h4>
+              </div>
+              <div class="col-lg-3">
+                {{order.street}} {{order.houseNumber}}<br>
+                {{order.city}} {{order.postcode}}
+              </div>
+              <div class="col-lg-2">
+                <p>{{order.phone}}</p>
+              </div>
+              <div class="col-lg-3">
+                <p>
+                  Ordered on: <strong>{{order.orderDate | date:'medium'}}</strong>
+                </p>
+                <p>
+                  Requested delivery time: <span class="label label-info">{{order.deliveryTime}}</span>
+                </p>
+              </div>
+              <div class="col-lg-2 text-right">
+                <button ng-click="$ctrl.printOrder($index)" class="btn btn-default">
+                  <i class="fa fa-print fa-2x"></i>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8">
+                <table>
+                  <tr ng-repeat="item in order.items">
+                    <td>{{item.qty}}</td>
+                    <td>{{item.item.name}}</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-lg-4">
+                <p><strong>Remarks</strong></p>
+                <p><em>{{order.remarks}}</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <h3>Stats</h3>
+      <table class="table table-condensed table-condensed">
+        <tr>
+          <td>Total orders</td>
+          <td>{{$ctrl.orders.length}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

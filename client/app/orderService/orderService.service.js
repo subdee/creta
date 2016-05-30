@@ -58,6 +58,10 @@ angular.module('cretaApp')
 
       canOrder: function () {
         return total > 12;
+      },
+
+      clearOrder: function () {
+        localStorageService.set('order', []);
       }
     };
   });

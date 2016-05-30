@@ -4,10 +4,12 @@
 
   class ThankyouController {
 
-    constructor($http, $window, $stateParams) {
+    constructor($http, $window, $stateParams, $state, orderService) {
       this.$http = $http;
       this.$window = $window;
       this.$stateParams = $stateParams;
+      this.$state = $state;
+      this.orderService = orderService;
       this.cssClass = 'info';
       this.message = 'Betaling verifiëren...';
     }

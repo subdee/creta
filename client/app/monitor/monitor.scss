@@ -1,0 +1,25 @@
+monitor {
+  font-family: Verdana, sans-serif;
+  font-weight: normal;
+  .monitor-table {
+    & > .row {
+      border: 1px solid black;
+      border-radius: 5px;
+      margin: 10px 0;
+      padding: 5px;
+      .row:not(:first-child) {
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 5px;
+      }
+      table tr td {
+        font-size: 1.2em;
+        &:first-child {
+          width: 30%;
+        }
+      }
+    }
+  }
+  .table td {
+    color: #000 !important;
+  }
+}

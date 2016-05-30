@@ -1,6 +1,6 @@
 'use strict';
 
-import Order from "./order.model";
+import Order from "../order/order.model";
 
 var token = '316778af877cf80833110eb638b442dd9d259966';
 var serviceId = 'SL-2693-0670';
@@ -73,7 +73,7 @@ export function check(req, res) {
 // Updates a payment in the DB
 export function update(req, res) {
   var orderId = req.params.orderId;
-  var order = Order.update(
+  Order.update(
     {transactionId: orderId},
     {$set: {completed: true}}
   ).then(
@@ -85,6 +85,7 @@ export function update(req, res) {
 
 function saveOrder(payment) {
   var order = new Order({
+    items: payment.items,
     name: payment.name,
     phone: payment.phone,
     street: payment.street,
@@ -101,6 +102,7 @@ function saveOrder(payment) {
   });
   order.save(function (err) {
     if (err) {
+      console.log(err);
       handleError(err);
     }
   });
