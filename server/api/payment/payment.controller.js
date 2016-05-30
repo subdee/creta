@@ -66,6 +66,7 @@ function saveOrder(payment) {
     city: payment.city,
     postcode: payment.postcode,
     amount: payment.amount,
+    remarks: payment.remarks,
     bank: payment.bank,
     transactionId: '',
     orderDate: Date.now(),

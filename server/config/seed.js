@@ -102,6 +102,16 @@ Menu.find({}).remove()
             'name': 'Mousaka',
             'price': 11.5,
             'desc': ''
+          },
+          {
+            'name': 'Stifado',
+            'price': 11.5,
+            'desc': ''
+          },
+          {
+            'name': 'Kolokithokeftedes',
+            'price': 11.5,
+            'desc': ''
           }
         ]
       },

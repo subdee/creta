@@ -20,7 +20,8 @@
         city: '',
         postcode: '',
         bank: '',
-        amount: 0
+        amount: 0,
+        remarks: ''
       };
     }
 
@@ -31,13 +32,15 @@
       });
     }
 
-    goToPayment() {
-      this.payment.amount = this.total;
-      this.$http.post('/api/payments', this.payment).then(response => {
-        if (response.data.request.result === '1') {
-          this.$window.location.href = response.data.transaction.paymentURL;
-        }
-      });
+    goToPayment(isValid) {
+      if (isValid) {
+        this.payment.amount = this.total;
+        this.$http.post('/api/payments', this.payment).then(response => {
+          if (response.data.request.result === '1') {
+            this.$window.location.href = response.data.transaction.paymentURL;
+          }
+        });
+      }
     }
   }
 

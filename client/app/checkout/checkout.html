@@ -1,92 +1,123 @@
 <div class="container">
-    <div class="row top">
-        <div class="col-lg-6">
-            <img src="assets/images/main.png" class="img-fluid" alt="Creta">
-        </div>
-        <div class="col-lg-6">
-            Jouw bestelling:
-            <table class="table table-responsive checkout">
-                <tr ng-repeat="item in $ctrl.order">
-                    <td>
-                        <span>{{item.qty}}</span>
-                    </td>
-                    <td>{{item.item.name}}</td>
-                    <td class="text-right price">{{item.item.price * item.qty | currency:''}}</td>
-                </tr>
-                <tr ng-if="$ctrl.deliveryCost > 0">
-                    <td></td>
-                    <td>Bezorgkosten</td>
-                    <td class="text-right price">{{$ctrl.deliveryCost | currency:''}}</td>
-                </tr>
-                <tr class="totals">
-                    <td></td>
-                    <td>Totaal</td>
-                    <td class="text-right price">{{$ctrl.total | currency:''}}</td>
-                </tr>
-            </table>
-        </div>
+  <div class="row top">
+    <div class="col-lg-6">
+      <img src="assets/images/main.png" class="img-fluid" alt="Creta">
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-        </div>
-        <div class="col-lg-6">
-            <h3>Jouw gegevens</h3>
-            <form>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="name">Naam</label>
-                            <input type="name" class="form-control" id="name" ng-model="$ctrl.payment.name"
-                                   ng-required="true">
-                        </div>
-                        <div class="col-xs-6">
-                            <label for="phone">Telefoonnummer</label>
-                            <input type="text" class="form-control" id="phone" ng-model="$ctrl.payment.phone"
-                                   ng-required="true">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="street">Straat</label>
-                            <input type="text" class="form-control" id="street" ng-model="$ctrl.payment.street"
-                                   ng-required="true">
-                        </div>
-                        <div class="col-xs-6">
-                            <label for="housenumber">Huisnummer</label>
-                            <input type="text" class="form-control" id="housenumber"
-                                   ng-model="$ctrl.payment.houseNumber" ng-required="true">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="city">Plaats</label>
-                            <input type="text" class="form-control" id="city" ng-model="$ctrl.payment.city"
-                                   ng-required="true">
-                        </div>
-                        <div class="col-xs-6">
-                            <label for="postcode">Postcode</label>
-                            <input type="text" class="form-control" id="postcode" ng-model="$ctrl.payment.postcode"
-                                   ng-required="true">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label for="bank">Bank</label>
-                            <select id="bank"
-                                    ng-options="bank.issuerId as bank.name for bank in $ctrl.banks.data track by bank.issuerId"
-                                    ng-model="$ctrl.payment.bank" ng-required="true">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-success" ng-click="$ctrl.goToPayment()">Naar betaalpagina</button>
-            </form>
-        </div>
+    <div class="col-lg-6">
+      Jouw bestelling:
+      <table class="table table-responsive checkout">
+        <tr ng-repeat="item in $ctrl.order">
+          <td>
+            <span>{{item.qty}}</span>
+          </td>
+          <td>{{item.item.name}}</td>
+          <td class="text-right price">{{item.item.price * item.qty | currency:''}}</td>
+        </tr>
+        <tr ng-if="$ctrl.deliveryCost > 0">
+          <td></td>
+          <td>Bezorgkosten</td>
+          <td class="text-right price">{{$ctrl.deliveryCost | currency:''}}</td>
+        </tr>
+        <tr class="totals">
+          <td></td>
+          <td>Totaal</td>
+          <td class="text-right price">{{$ctrl.total | currency:''}}</td>
+        </tr>
+      </table>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+    </div>
+    <div class="col-lg-6">
+      <h3>Jouw gegevens</h3>
+      <form name="checkoutform" novalidate ng-submit="$ctrl.goToPayment(checkoutform.$valid)">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-6">
+              <label for="name">Naam</label>
+              <input type="text" class="form-control" id="name" ng-model="$ctrl.payment.name"
+                     name="name" required>
+              <p ng-show="checkoutform.name.$invalid && checkoutform.name.$dirty" class="help-block">
+                Naam is verplicht
+              </p>
+            </div>
+            <div class="col-xs-6">
+              <label for="phone">Telefoonnummer</label>
+              <input type="text" class="form-control" id="phone" ng-model="$ctrl.payment.phone"
+                     name="phone" required>
+              <p ng-show="checkoutform.phone.$invalid && checkoutform.phone.$dirty" class="help-block">
+                Telefoonnummer is verplicht
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-6">
+              <label for="street">Straat</label>
+              <input type="text" class="form-control" id="street" ng-model="$ctrl.payment.street"
+                     name="street" required>
+              <p ng-show="checkoutform.street.$invalid && !checkoutform.street.$pristine" class="help-block">
+                Straat is verplicht
+              </p>
+            </div>
+            <div class="col-xs-6">
+              <label for="housenumber">Huisnummer</label>
+              <input type="text" class="form-control" id="housenumber" name="housenumber"
+                     ng-model="$ctrl.payment.houseNumber" required>
+              <p ng-show="checkoutform.housenumber.$invalid && !checkoutform.housenumber.$pristine" class="help-block">
+                Huisnummer is verplicht
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-6">
+              <label for="city">Plaats</label>
+              <input type="text" class="form-control" id="city" ng-model="$ctrl.payment.city"
+                     name="city" required>
+              <p ng-show="checkoutform.city.$invalid && !checkoutform.city.$pristine" class="help-block">
+                Plaats is verplicht
+              </p>
+            </div>
+            <div class="col-xs-6">
+              <label for="postcode">Postcode</label>
+              <input type="text" class="form-control" id="postcode" ng-model="$ctrl.payment.postcode"
+                     required ng-pattern="/2291|2292/" name="postcode">
+              <p ng-show="checkoutform.postcode.$invalid && !checkoutform.postcode.$pristine" class="help-block">
+                Wij bezorgen alleen op postcodes 2291 en 2291
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-12">
+              <label for="bank">Bank</label>
+              <select id="bank"
+                      ng-options="bank.issuerId as bank.name for bank in $ctrl.banks.data track by bank.issuerId"
+                      ng-model="$ctrl.payment.bank" required name="bank">
+              </select>
+              <p ng-show="checkoutform.bank.$invalid && !checkoutform.bank.$pristine" class="help-block">
+                Bank is verplicht
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-12">
+              <label for="remarks">Opmerkingen</label>
+              <textarea id="remarks" ng-model="$ctrl.payment.remarks" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">
+          Naar betaalpagina
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

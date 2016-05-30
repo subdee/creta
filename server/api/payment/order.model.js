@@ -10,6 +10,7 @@ var OrderSchema = new mongoose.Schema({
   city: String,
   postcode: String,
   amount: Number,
+  remarks: String,
   bank: Number,
   transactionId: String,
   orderDate: Number,
