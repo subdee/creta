@@ -1,0 +1,28 @@
+.table {
+  border-bottom: 0 !important;
+  th, td {
+    border: 0 !important;
+  }
+  td {
+    color: #fff;
+    &.price {
+    }
+  }
+  &.checkout {
+    tr.totals {
+      td {
+        font-weight: bold;
+      }
+    }
+    td {
+      color: #222;
+      width: 33%;
+      span {
+        width: 40px;
+      }
+      i {
+        cursor: pointer;
+      }
+    }
+  }
+}

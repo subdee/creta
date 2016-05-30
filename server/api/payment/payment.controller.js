@@ -57,6 +57,32 @@ export function create(req, res) {
   );
 }
 
+// Checks a payment
+export function check(req, res) {
+  var orderId = req.params.orderId;
+  pay.invoke('Transaction/info/v3', {
+    token: token,
+    transactionId: orderId
+  }).then(
+    respondWithResult(res, 200)
+  ).catch(
+    handleError(res)
+  );
+}
+
+// Updates a payment in the DB
+export function update(req, res) {
+  var orderId = req.params.orderId;
+  var order = Order.update(
+    {transactionId: orderId},
+    {$set: {completed: true}}
+  ).then(
+    respondWithResult(res, 200)
+  ).catch(
+    handleError(res)
+  );
+}
+
 function saveOrder(payment) {
   var order = new Order({
     name: payment.name,
@@ -67,6 +93,7 @@ function saveOrder(payment) {
     postcode: payment.postcode,
     amount: payment.amount,
     remarks: payment.remarks,
+    deliveryTime: payment.deliveryTime,
     bank: payment.bank,
     transactionId: '',
     orderDate: Date.now(),
