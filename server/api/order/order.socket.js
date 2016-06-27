@@ -13,5 +13,5 @@ exports.register = function(socket) {
 };
 
 function onUpdate(socket, doc) {
-  socket.emit('order:completed', doc);
+  socket.emit('Order:completed', doc);
 }
