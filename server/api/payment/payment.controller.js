@@ -49,7 +49,7 @@ export function create(req, res) {
     amount: amt,
     paymentOptionId: 10,
     paymentOptionSubId: order.bank,
-    finishUrl: 'http://creta-subdee.rhcloud.com/thankyou'
+    finishUrl: 'http://www.cretabroodjes.nl/thankyou'
   }).then(
     respondWithResult(res, 200, order)
   ).catch(

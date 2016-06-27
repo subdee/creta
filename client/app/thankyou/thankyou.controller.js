@@ -17,11 +17,11 @@
     $onInit() {
       if (!this.$stateParams.orderId) {
         this.cssClass = 'danger';
-        this.message = 'Er is iets fout met je bestelling. Probeer opnieuw alsjeblieft.'
+        this.message = 'Er is iets fout met je bestelling. Probeer opnieuw alsjeblieft.';
       }
       if (!this.$stateParams.orderStatusId || this.$stateParams.orderStatusId !== '100') {
         this.cssClass = 'danger';
-        this.message = 'Je betaling is misgelukt. Probeer opnieuw!'
+        this.message = 'Je betaling is misgelukt. Probeer opnieuw!';
       }
 
       this.$http.get('/api/payments/' + this.$stateParams.orderId).then(response => {
