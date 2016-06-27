@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-if="!$ctrl.closed">
   <div class="row top">
     <div class="col-lg-6">
       <img src="assets/images/main.png" class="img-fluid" alt="Creta">
@@ -85,9 +85,16 @@
             <div class="col-xs-6">
               <label for="postcode">Postcode</label>
               <input type="text" class="form-control" id="postcode" ng-model="$ctrl.payment.postcode"
-                     required ng-pattern="/2291|2292/" name="postcode">
+                     ng-if="$ctrl.total < 25"
+                     required ng-pattern="/2291|2292|2548|2284|2285|2295|2287|2542|2541|2543|2544|2613|2614/"
+                     name="postcode">
+              <input type="text" class="form-control" id="postcode" ng-model="$ctrl.payment.postcode"
+                     ng-if="$ctrl.total > 25"
+                     required
+                     ng-pattern="/2291|2292|2548|2284|2285|2295|2287|2542|2541|2543|2544|2613|2614|2288|2632|2531|2533|2545|2611|2612/"
+                     name="postcode">
               <p ng-show="checkoutform.postcode.$invalid && !checkoutform.postcode.$pristine" class="help-block">
-                Wij bezorgen alleen op postcodes 2291 en 2292
+                Helaas wij bezorgen bij je postcode niet
               </p>
             </div>
           </div>
@@ -127,4 +134,15 @@
       </form>
     </div>
   </div>
+</div>
+<div class="container" ng-if="$ctrl.closed">
+  <div class="col-lg-6">
+    <img src="assets/images/main.png" class="img-fluid" alt="Creta">
+  </div>
+  <p>Helaas, bestellen is niet mogellijk omdat wij zijn nu gesloten.</p>
+  <p>
+    <a href="{{$ctrl.mainUrl}}">
+      Terug naar het hoofdpagina
+    </a>
+  </p>
 </div>

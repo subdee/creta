@@ -12,6 +12,7 @@
       this.deliveryCost = this.orderService.getDeliveryCost();
       this.total = this.orderService.calculateTotal();
       this.banks = [];
+      this.closed = false;
       this.deliveryTimeOptions = CheckoutController.getDeliveryTimeOptions();
       this.payment = {
         items: this.order,
@@ -31,6 +32,11 @@
 
     $onInit() {
       var self = this;
+      var currentHour = (new Date()).getHours();
+      if (currentHour >= 21) {
+        this.closed = true;
+        return;
+      }
       this.$http.get('/api/payments').then(response => {
         self.banks = response;
       });
@@ -48,9 +54,9 @@
     }
 
     static getDeliveryTimeOptions() {
-      var options = [{value: 'Zo snel mogelijk'}];
       var currentHour = (new Date()).getHours();
       var currentMinutes = (new Date()).getMinutes();
+      var options = [{value: 'Zo snel mogelijk'}];
       for (var hour = currentHour; hour < 21; hour++) {
         for (var minute = 0; minute < 60; minute += 15) {
           if (hour === currentHour) {

@@ -4,18 +4,17 @@
 
   class MonitorController {
 
-    constructor($http, socket) {
+    constructor($http, $interval) {
       this.$http = $http;
-      this.socket = socket;
+      this.$interval = $interval;
       this.orders = [];
     }
 
     $onInit() {
-      var self = this;
-      this.$http.get('/api/orders').then(orders => {
-        self.orders = orders.data;
-        self.socket.syncUpdates('Order', self.orders);
-      });
+      this.loadOrders();
+      this.$interval(function () {
+        this.loadOrders();
+      }.bind(this), 30000);
     }
 
     printOrder(div) {
@@ -25,6 +24,13 @@
       popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head>' +
         '<body onload="window.print()">' + printContents + '</body></html>');
       popupWin.document.close();
+    }
+
+    loadOrders() {
+      var self = this;
+      this.$http.get('/api/orders').then(orders => {
+        self.orders = orders.data;
+      });
     }
   }
 

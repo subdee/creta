@@ -8,7 +8,6 @@ angular.module('cretaApp', [
   'ui.router',
   'ui.bootstrap',
   'ngMap',
-  'btford.socket-io',
   'LocalStorageModule'
 ])
   .config(function ($urlRouterProvider, $locationProvider, localStorageServiceProvider) {
