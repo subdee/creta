@@ -8,6 +8,8 @@
       this.$http = $http;
       this.$interval = $interval;
       this.orders = [];
+      this.loggedIn = false;
+      this.authCode = '';
     }
 
     $onInit() {
@@ -31,6 +33,14 @@
       this.$http.get('/api/orders').then(orders => {
         self.orders = orders.data;
       });
+    }
+
+    login() {
+      if (this.authCode === 'creta123!') {
+        this.loggedIn = true;
+        return;
+      }
+      this.loggedIn = false;
     }
   }
 
